@@ -168,6 +168,56 @@ app.put('/product/:pid', (req, res) => {
     });
 });
 
+// Endpoint to fetch product details by PID
+app.get('/product/:pid', (req, res) => {
+    const pid = req.params.pid;
+    const query = 'SELECT * FROM product WHERE pid = ?';
+    connection.query(query, [pid], (err, results) => {
+        if (err) {
+            console.error('Error fetching product:', err);
+            res.status(500).json({ error: 'Failed to fetch product' });
+        } else {
+            if (results.length === 0) {
+                res.status(404).json({ error: 'Product not found' });
+            } else {
+                res.status(200).json(results[0]);
+            }
+        }
+    });
+});
+
+// Endpoint to fetch product details by PID
+app.get('/product/:pid', (req, res) => {
+    const pid = req.params.pid;
+    const query = 'SELECT * FROM product WHERE pid = ?';
+    connection.query(query, [pid], (err, results) => {
+        if (err) {
+            console.error('Error fetching product:', err);
+            res.status(500).json({ error: 'Failed to fetch product' });
+        } else {
+            if (results.length === 0) {
+                res.status(404).json({ error: 'Product not found' });
+            } else {
+                res.status(200).json(results[0]);
+            }
+        }
+    });
+});
+
+// Endpoint to update a product
+app.put('/product/:pid', (req, res) => {
+    const pid = req.params.pid;
+    const { pname, manufacturer, mfg, exp, price, quantity } = req.body;
+    const query = 'UPDATE product SET pname=?, manufacturer=?, mfg=?, exp=?, price=?, quantity=? WHERE pid=?';
+    connection.query(query, [pname, manufacturer, mfg, exp, price, quantity, pid], (err, results) => {
+        if (err) {
+            console.error('Error updating product:', err);
+            res.status(500).json({ error: 'Failed to update product' });
+        } else {
+            res.status(200).json({ message: 'Product updated successfully' });
+        }
+    });
+});
 
 // Start the server
 const server = http.createServer(app);
