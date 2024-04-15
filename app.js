@@ -14,6 +14,15 @@ app.use(express.json());
 // Middleware to serve static files from the 'public' directory
 app.use(express.static('public'));
 
+const session = require('express-session');
+
+// Configure session middleware
+app.use(session({
+    secret: 'your_secret_key', // Change this to a random string
+    resave: false,
+    saveUninitialized: false
+}));
+
 // Create MySQL database connection
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -55,6 +64,31 @@ const createProductTableQuery = `
 
 `;
 
+// Create orders table if not exists
+const createOrdersTableQuery = `
+    CREATE TABLE IF NOT EXISTS orders (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        product VARCHAR(255) NOT NULL,
+        quantity INT NOT NULL,
+        address TEXT NOT NULL,
+        payment_mode VARCHAR(50) NOT NULL,
+        order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+`;
+// Create PL/SQL trigger to update product quantity after order placement
+    const createTriggerQuery = `
+        CREATE OR REPLACE TRIGGER update_product_quantity
+        AFTER INSERT ON orders
+        FOR EACH ROW
+        BEGIN
+            UPDATE product
+            SET quantity = quantity - NEW.quantity
+            WHERE pname = NEW.product;
+        END;
+    `;
+
+    
+
 // Execute queries to create tables
 connection.query(createUserTableQuery, (err) => {
    if (err) {
@@ -71,6 +105,24 @@ connection.query(createProductTableQuery, (err) => {
    }
    console.log('Product table created or already exists');
 });
+
+// Execute query to create orders table
+connection.query(createOrdersTableQuery, (err) => {
+    if (err) {
+        console.error('Error creating orders table:', err);
+    } else {
+        console.log('Orders table created or already exists');
+    }
+});
+// Execute the trigger creation query
+    connection.query(createTriggerQuery, (err) => {
+        if (err) {
+            console.error('Error creating trigger:', err);
+        } else {
+            console.log('Trigger created successfully');
+        }
+    });
+
     // Insert sample users
     connection.query('INSERT IGNORE INTO users (username, password, role) VALUES (?, ?, ?)', ['admin', 'admin123', 'admin']);
     connection.query('INSERT IGNORE INTO users (username, password, role) VALUES (?, ?, ?)', ['customer', 'customer123', 'customer']);
@@ -168,23 +220,7 @@ app.put('/product/:pid', (req, res) => {
     });
 });
 
-// Endpoint to fetch product details by PID
-app.get('/product/:pid', (req, res) => {
-    const pid = req.params.pid;
-    const query = 'SELECT * FROM product WHERE pid = ?';
-    connection.query(query, [pid], (err, results) => {
-        if (err) {
-            console.error('Error fetching product:', err);
-            res.status(500).json({ error: 'Failed to fetch product' });
-        } else {
-            if (results.length === 0) {
-                res.status(404).json({ error: 'Product not found' });
-            } else {
-                res.status(200).json(results[0]);
-            }
-        }
-    });
-});
+
 
 // Endpoint to fetch product details by PID
 app.get('/product/:pid', (req, res) => {
@@ -246,6 +282,45 @@ app.post('/register', (req, res) => {
         }
     });
 });
+
+// Handle login POST requests
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    // Query the database to check if the username and password match
+    connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (err, results) => {
+        if (err) {
+            console.error('Error querying database:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else if (results.length > 0) {
+            // Store the username in the session
+            req.session.username = username;
+
+            // Send response indicating successful login
+            res.json({ message: 'Login successful' });
+        } else {
+            // No user found with the given credentials
+            res.status(401).json({ error: 'Invalid username or password' });
+        }
+    });
+});
+// Handle order placement
+app.post('/placeOrder', (req, res) => {
+    const { product, quantity, address, paymentMode } = req.body;
+
+    // Insert the order into the database
+    const query = 'INSERT INTO orders (product, quantity, address, payment_mode) VALUES (?, ?, ?, ?)';
+    connection.query(query, [product, quantity, address, paymentMode], (err, results) => {
+        if (err) {
+            console.error('Error placing order:', err);
+            res.status(500).json({ error: 'Failed to place order' });
+        } else {
+            console.log('Order placed successfully');
+            res.status(200).json({ message: 'Order placed successfully' });
+        }
+    });
+});
+
 
 
 // Start the server
