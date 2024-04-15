@@ -93,3 +93,16 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+
+
+/* Style for Shipped and Delivered buttons */
+.order button {
+    display: inline-block;
+    margin-left: 10px; /* Adjust the spacing between buttons */
+}
+
+/* Adjust the spacing between orders */
+.order + .order {
+    margin-top: 10px;
+}

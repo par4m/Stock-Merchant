@@ -156,3 +156,112 @@ function loadInventory() {
         })
         .catch(error => console.error('Error fetching inventory:', error));
 }
+
+function fetchOrders() {
+    fetch('/orders')
+        .then(response => response.json())
+        .then(orders => {
+            orders.forEach(order => {
+                const orderElement = createOrderElement(order);
+                const orderContainer = getOrderContainer(order);
+                if (!orderContainer.querySelector(`[data-order-id="${order.id}"]`)) {
+                    orderContainer.appendChild(orderElement);
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching orders:', error));
+}
+
+function getOrderContainer(order) {
+    if (order.status === null) {
+        return document.getElementById('pending-orders');
+    } else if (order.status === 'Shipped') {
+        return document.getElementById('shipped-orders');
+    } else if (order.status === 'Delivered') {
+        return document.getElementById('delivered-orders');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Fetch and display orders
+    fetchOrders();
+
+    // Handle click on "Shipped" button for pending orders
+    document.getElementById('pending-orders').addEventListener('click', function(event) {
+        if (event.target.classList.contains('ship-button')) {
+            const orderId = event.target.dataset.orderId;
+            updateOrderStatus(orderId, 'Shipped');
+        }
+    });
+
+    // Handle click on "Delivered" button for shipped orders
+    document.getElementById('shipped-orders').addEventListener('click', function(event) {
+        if (event.target.classList.contains('deliver-button')) {
+            const orderId = event.target.dataset.orderId;
+            updateOrderStatus(orderId, 'Delivered');
+        }
+    });
+});
+
+function fetchOrders() {
+    fetch('/orders')
+        .then(response => response.json())
+        .then(orders => {
+            orders.forEach(order => {
+                const orderElement = createOrderElement(order);
+                if (order.status === null) {
+                    document.getElementById('pending-orders').appendChild(orderElement);
+                } else if (order.status === 'Shipped') {
+                    document.getElementById('shipped-orders').appendChild(orderElement);
+                } else if (order.status === 'Delivered') {
+                    document.getElementById('delivered-orders').appendChild(orderElement);
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching orders:', error));
+}
+
+function createOrderElement(order) {
+    const orderDiv = document.createElement('div');
+    orderDiv.classList.add('order');
+    orderDiv.innerHTML = `
+        <p>Order ID: ${order.id}</p>
+        <p>Product: ${order.product}</p>
+        <p>Quantity: ${order.quantity}</p>
+        <p>Address: ${order.address}</p>
+        <p>Payment Mode: ${order.payment_mode}</p>
+        <p>Status: ${order.status || 'Pending'}</p>
+        <p>Order Date: ${order.order_date}</p>
+    `;
+    if (order.status === null) {
+        const shipButton = document.createElement('button');
+        shipButton.textContent = 'Shipped';
+        shipButton.classList.add('ship-button');
+        shipButton.dataset.orderId = order.id;
+        orderDiv.appendChild(shipButton);
+    } else if (order.status === 'Shipped') {
+        const deliverButton = document.createElement('button');
+        deliverButton.textContent = 'Delivered';
+        deliverButton.classList.add('deliver-button');
+        deliverButton.dataset.orderId = order.id;
+        orderDiv.appendChild(deliverButton);
+    }
+    return orderDiv;
+}
+
+function updateOrderStatus(orderId, status) {
+    fetch(`/order/${orderId}/status`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update order status');
+        }
+        location.reload(); // Refresh the page to reflect the updated status
+    })
+    .catch(error => console.error('Error updating order status:', error));
+}

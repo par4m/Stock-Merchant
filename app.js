@@ -66,12 +66,13 @@ const createProductTableQuery = `
 
 // Create orders table if not exists
 const createOrdersTableQuery = `
-    CREATE TABLE IF NOT EXISTS orders (
+   CREATE TABLE IF NOT EXISTS orders (
         id INT AUTO_INCREMENT PRIMARY KEY,
         product VARCHAR(255) NOT NULL,
         quantity INT NOT NULL,
         address TEXT NOT NULL,
         payment_mode VARCHAR(50) NOT NULL,
+        status VARCHAR(50),
         order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
 `;
@@ -322,6 +323,34 @@ app.post('/placeOrder', (req, res) => {
 });
 
 
+
+// Endpoint to fetch orders
+app.get('/orders', (req, res) => {
+    const query = 'SELECT * FROM orders';
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching orders:', err);
+            res.status(500).json({ error: 'Failed to fetch orders' });
+        } else {
+            res.status(200).json(results);
+        }
+    });
+});
+
+// Endpoint to update order status
+app.put('/order/:id/status', (req, res) => {
+    const orderId = req.params.id;
+    const { status } = req.body;
+    const query = 'UPDATE orders SET status = ? WHERE id = ?';
+    connection.query(query, [status, orderId], (err, results) => {
+        if (err) {
+            console.error('Error updating order status:', err);
+            res.status(500).json({ error: 'Failed to update order status' });
+        } else {
+            res.status(200).json({ message: 'Order status updated successfully' });
+        }
+    });
+});
 
 // Start the server
 const server = http.createServer(app);
