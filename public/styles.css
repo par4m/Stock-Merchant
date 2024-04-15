@@ -1,0 +1,80 @@
+/* styles.css */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+}
+
+.login-box {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2em;
+    margin: 0 1em;
+}
+
+.login-box h2 {
+    margin-top: 0;
+    margin-bottom: 1em;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 1.5em;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: #555;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.7em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn {
+    background-color: #333;
+    color: #fff;
+    padding: 0.7em 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #555;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1em 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
