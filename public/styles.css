@@ -38,6 +38,21 @@ main {
     color: #333;
 }
 
+
+.register-box {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2em;
+    margin: 0 1em;
+}
+
+.register-box h2 {
+    margin-top: 0;
+    margin-bottom: 1em;
+    color: #333;
+}
+
 .input-group {
     margin-bottom: 1.5em;
 }

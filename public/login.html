@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,15 +15,18 @@
         <section id="login">
             <div id="login-box" class="login-box">
                 <h2>Login</h2>
-                <button onclick="redirectToLogin()">Login</button>
+                <form id="login-form">
+                    <div class="input-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                </form>
                 <p id="error-message" class="error-message"></p> <!-- Error message element -->
-            </div>
-        </section>
-        <section id="register">
-            <div id="register-box" class="register-box">
-                <h2>Register</h2>
-                <button onclick="redirectToRegister()">Register</button>
-                <p id="reg-error-message" class="error-message"></p> <!-- Error message element -->
             </div>
         </section>
     </main>
@@ -33,14 +35,6 @@
         <p>&copy; 2024 Online Shopping</p>
     </footer>
 
-    <script>
-        function redirectToLogin() {
-            window.location.href = '/login.html';
-        }
-
-        function redirectToRegister() {
-            window.location.href = '/register.html';
-        }
-    </script>
+    <script src="LoginScript.js"></script>
 </body>
 </html>

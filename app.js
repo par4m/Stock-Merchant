@@ -72,8 +72,8 @@ connection.query(createProductTableQuery, (err) => {
    console.log('Product table created or already exists');
 });
     // Insert sample users
-    connection.query('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', ['admin', 'admin123', 'admin']);
-    connection.query('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', ['customer', 'customer123', 'customer']);
+    connection.query('INSERT IGNORE INTO users (username, password, role) VALUES (?, ?, ?)', ['admin', 'admin123', 'admin']);
+    connection.query('INSERT IGNORE INTO users (username, password, role) VALUES (?, ?, ?)', ['customer', 'customer123', 'customer']);
 });
 
 // Serve index.html for the root URL
@@ -218,6 +218,35 @@ app.put('/product/:pid', (req, res) => {
         }
     });
 });
+
+
+// Endpoint to handle user registration
+app.post('/register', (req, res) => {
+    const { username, password } = req.body;
+
+    // Check if the username already exists in the database
+    connection.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+        if (err) {
+            console.error('Error querying database:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else if (results.length > 0) {
+            // Username already exists
+            res.status(409).json({ error: 'Username already exists' });
+        } else {
+            // Insert the new user into the database
+            connection.query('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', [username, password, 'customer'], (err, results) => {
+                if (err) {
+                    console.error('Error inserting user:', err);
+                    res.status(500).json({ error: 'Failed to register user' });
+                } else {
+                    // User successfully registered
+                    res.status(200).json({ message: 'User registered successfully' });
+                }
+            });
+        }
+    });
+});
+
 
 // Start the server
 const server = http.createServer(app);
