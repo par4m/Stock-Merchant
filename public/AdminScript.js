@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
             inventory.forEach(product => {
                 const listItem = document.createElement('li');
                 listItem.innerHTML = `
+                <img src="/${product.pname}.jpg" alt="${product.pname}">
+                <br>
                     <span>${product.pname} - ${product.price}</span>
                     <button onclick="deleteProduct('${product.pid}')">Delete</button>
                     <button onclick="editProduct('${product.pid}', '${product.pname}', '${product.manufacturer}', '${product.mfg}', '${product.exp}', ${product.price}, ${product.quantity})">Edit</button>

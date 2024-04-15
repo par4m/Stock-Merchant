@@ -1,15 +1,15 @@
 /* styles.css */
-
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
+    background-color: #282828; /* Gruvbox dark background */
+    color: #ebdbb2; /* Gruvbox light foreground */
 }
 
 header {
-    background-color: #333;
-    color: #fff;
+    background-color: #504945; /* Gruvbox dark background */
+    color: #d3869b; /* Gruvbox pink */
     padding: 1em;
     text-align: center;
 }
@@ -24,33 +24,21 @@ main {
     justify-content: center;
 }
 
-.login-box {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 2em;
-    margin: 0 1em;
-}
-
-.login-box h2 {
-    margin-top: 0;
-    margin-bottom: 1em;
-    color: #333;
-}
-
-
+.login-box,
 .register-box {
-    background-color: #fff;
+    background-color: #3c3836; /* Gruvbox dark background */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 2em;
     margin: 0 1em;
+    width: 300px; /* Adjust width as needed */
 }
 
+.login-box h2,
 .register-box h2 {
     margin-top: 0;
     margin-bottom: 1em;
-    color: #333;
+    color: #d3869b; /* Gruvbox pink */
 }
 
 .input-group {
@@ -60,19 +48,21 @@ main {
 .input-group label {
     display: block;
     margin-bottom: 0.5em;
-    color: #555;
+    color: #d5c4a1; /* Gruvbox light foreground */
 }
 
 .input-group input {
     width: 100%;
     padding: 0.7em;
-    border: 1px solid #ccc;
+    border: 1px solid #504945; /* Gruvbox dark background */
     border-radius: 5px;
+    background-color: #504945; /* Gruvbox dark background */
+    color: #ebdbb2; /* Gruvbox light foreground */
 }
 
 .btn {
-    background-color: #333;
-    color: #fff;
+    background-color: #b16286; /* Gruvbox pink */
+    color: #ebdbb2; /* Gruvbox light foreground */
     padding: 0.7em 1em;
     border: none;
     border-radius: 5px;
@@ -81,12 +71,12 @@ main {
 }
 
 .btn:hover {
-    background-color: #555;
+    background-color: #d3869b; /* Lighter pink */
 }
 
 footer {
-    background-color: #333;
-    color: #fff;
+    background-color: #504945; /* Gruvbox dark background */
+    color: #ebdbb2; /* Gruvbox light foreground */
     text-align: center;
     padding: 1em 0;
     position: fixed;
@@ -94,15 +84,119 @@ footer {
     width: 100%;
 }
 
-
-
-/* Style for Shipped and Delivered buttons */
-.order button {
-    display: inline-block;
-    margin-left: 10px; /* Adjust the spacing between buttons */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #282828; /* Gruvbox dark background */
+    color: #ebdbb2; /* Gruvbox light foreground */
 }
 
-/* Adjust the spacing between orders */
-.order + .order {
-    margin-top: 10px;
+header {
+    background-color: #504945; /* Gruvbox dark background */
+    color: #d3869b; /* Gruvbox pink */
+    padding: 1em;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+}
+
+.login-box,
+.register-box {
+    background-color: #3c3836; /* Gruvbox dark background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2em;
+    margin: 0 1em;
+    width: 300px; /* Adjust width as needed */
+}
+
+.login-box h2,
+.register-box h2 {
+    margin-top: 0;
+    margin-bottom: 1em;
+    color: #d3869b; /* Gruvbox pink */
+}
+
+.input-group {
+    margin-bottom: 1.5em;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: #d5c4a1; /* Gruvbox light foreground */
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.7em;
+    border: 1px solid #504945; /* Gruvbox dark background */
+    border-radius: 5px;
+    background-color: #504945; /* Gruvbox dark background */
+    color: #ebdbb2; /* Gruvbox light foreground */
+}
+
+.btn {
+    align-items: center;
+    background-color: #fee6e3;
+    border: 2px solid #111;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #111;
+    cursor: pointer;
+    display: flex;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    height: 48px;
+    justify-content: center;
+    line-height: 24px;
+    max-width: 100%;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #ffdeda;
+}
+
+footer {
+    background-color: #504945; /* Gruvbox dark background */
+    color: #ebdbb2; /* Gruvbox light foreground */
+    text-align: center;
+    padding: 1em 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+main {
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center vertically */
+}
+
+@keyframes move {
+    0% { transform: translateX(-50px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+.login-box,
+.register-box {
+    animation: move 1s ease-out forwards; /* Apply animation */
 }

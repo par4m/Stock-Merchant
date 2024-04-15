@@ -1,0 +1,500 @@
+/* CustomerStyle.css */
+
+/* Define colors */
+:root {
+    --gruvbox-bg: #282828;
+    --gruvbox-fg: #ebdbb2;
+    --gruvbox-dark1: #3c3836;
+    --gruvbox-dark2: #504945;
+    --gruvbox-light1: #d5c4a1;
+    --gruvbox-light2: #bdae93;
+    --gruvbox-red: #cc241d;
+    --gruvbox-green: #98971a;
+    --gruvbox-yellow: #d79921;
+    --gruvbox-blue: #458588;
+    --gruvbox-purple: #b16286;
+    --gruvbox-aqua: #689d6a;
+    --gruvbox-orange: #d65d0e;
+}
+
+/* Apply global styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--gruvbox-bg); /* Gruvbox dark background */
+    color: var(--gruvbox-fg); /* Gruvbox light foreground */
+}
+
+header {
+    background-color: var(--gruvbox-dark2); /* Gruvbox dark background */
+    color: var(--gruvbox-pink); /* Gruvbox pink */
+    padding: 1em;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+}
+
+/* Apply styles to product list */
+#product-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Apply styles to individual product */
+#product-list li {
+    background-color: var(--gruvbox-dark2);
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+#product-list li:hover {
+    transform: translateY(-5px);
+}
+
+#product-list img {
+    max-width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#product-list span {
+    color: var(--gruvbox-light1);
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+#product-list select {
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px solid var(--gruvbox-dark1);
+    border-radius: 5px;
+    background-color: var(--gruvbox-dark1);
+    color: var(--gruvbox-light1);
+}
+
+#product-list button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: var(--gruvbox-blue);
+    color: var(--gruvbox-light1);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#product-list button:hover {
+    background-color: var(--gruvbox-purple);
+}
+
+/* Apply other styles */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--gruvbox-dark1); /* Gruvbox dark background */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--gruvbox-light1); /* Gruvbox light foreground */
+}
+
+.input,
+.button {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: var(--gruvbox-dark1); /* Gruvbox dark background */
+    color: var(--gruvbox-light1); /* Gruvbox light foreground */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.input:focus,
+.button:focus {
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.date-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.date-inputs div {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.button {
+    background-color: var(--gruvbox-blue); /* Gruvbox blue */
+    color: var(--gruvbox-light1); /* Gruvbox light foreground */
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: var(--gruvbox-green); /* Gruvbox green */
+}
+
+.orders-container {
+    display: flex;
+}
+
+.orders-section {
+    background-color: var(--gruvbox-dark1); /* Gruvbox dark background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    flex: 1;
+    margin-right: 20px;
+}
+
+.orders-section:last-child {
+    margin-right: 0;
+}
+
+.orders-section h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--gruvbox-yellow); /* Gruvbox yellow */
+}
+
+@keyframes move {
+    0% { transform: translateX(-50px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+.login-box,
+.register-box {
+    animation: move 1s ease-out forwards; /* Apply animation */
+}
+
+/* styles.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #282828; /* Gruvbox dark background */
+    color: #ebdbb2; /* Gruvbox light foreground */
+}
+
+header {
+    background-color: #504945; /* Gruvbox dark background */
+    color: #d3869b; /* Gruvbox pink */
+    padding: 1em;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+}
+
+.login-box,
+.register-box {
+    background-color: #3c3836; /* Gruvbox dark background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2em;
+    margin: 0 1em;
+    width: 300px; /* Adjust width as needed */
+}
+
+.login-box h2,
+.register-box h2 {
+    margin-top: 0;
+    margin-bottom: 1em;
+    color: #d3869b; /* Gruvbox pink */
+}
+
+.input-group {
+    margin-bottom: 1.5em;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: #d5c4a1; /* Gruvbox light foreground */
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.7em;
+    border: 1px solid #504945; /* Gruvbox dark background */
+    border-radius: 5px;
+    background-color: #504945; /* Gruvbox dark background */
+    color: #ebdbb2; /* Gruvbox light foreground */
+}
+
+.btn {
+    background-color: #b16286; /* Gruvbox pink */
+    color: #ebdbb2; /* Gruvbox light foreground */
+    padding: 0.7em 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #d3869b; /* Lighter pink */
+}
+
+footer {
+    background-color: #504945; /* Gruvbox dark background */
+    color: #ebdbb2; /* Gruvbox light foreground */
+    text-align: center;
+    padding: 1em 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #282828; /* Gruvbox dark background */
+    color: #ebdbb2; /* Gruvbox light foreground */
+}
+
+header {
+    background-color: #504945; /* Gruvbox dark background */
+    color: #d3869b; /* Gruvbox pink */
+    padding: 1em;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+}
+
+.login-box,
+.register-box {
+    background-color: #3c3836; /* Gruvbox dark background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2em;
+    margin: 0 1em;
+    width: 300px; /* Adjust width as needed */
+}
+
+.login-box h2,
+.register-box h2 {
+    margin-top: 0;
+    margin-bottom: 1em;
+    color: #d3869b; /* Gruvbox pink */
+}
+
+.input-group {
+    margin-bottom: 1.5em;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: #d5c4a1; /* Gruvbox light foreground */
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.7em;
+    border: 1px solid #504945; /* Gruvbox dark background */
+    border-radius: 5px;
+    background-color: #504945; /* Gruvbox dark background */
+    color: #ebdbb2; /* Gruvbox light foreground */
+}
+
+.btn {
+    align-items: center;
+    background-color: #fee6e3;
+    border: 2px solid #111;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #111;
+    cursor: pointer;
+    display: flex;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    height: 48px;
+    justify-content: center;
+    line-height: 24px;
+    max-width: 100%;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #ffdeda;
+}
+
+footer {
+    background-color: #504945; /* Gruvbox dark background */
+    color: #ebdbb2; /* Gruvbox light foreground */
+    text-align: center;
+    padding: 1em 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+main {
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center vertically */
+}
+
+@keyframes move {
+    0% { transform: translateX(-50px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+.login-box,
+.register-box {
+    animation: move 1s ease-out forwards; /* Apply animation */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #282828; /* Gruvbox dark background */
+    color: #ebdbb2; /* Gruvbox light foreground */
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #3c3836; /* Gruvbox dark background */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #d1879e; /* Gruvbox yellow */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #d5c4a1; /* Gruvbox light foreground */
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+button {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #504945; /* Gruvbox dark background */
+    color: #d5c4a1; /* Gruvbox light foreground */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+button:focus {
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.date-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.date-inputs div {
+    flex: 1;
+    margin-right: 10px;
+}
+
+button {
+    background-color: #458588; /* Gruvbox blue */
+    color: #ebdbb2; /* Gruvbox light foreground */
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #689d6a; /* Gruvbox green */
+}
+
+.orders-container {
+    display: flex;
+}
+
+.orders-section {
+    background-color: #3c3836; /* Gruvbox dark background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    flex: 1;
+    margin-right: 20px;
+}
+
+.orders-section:last-child {
+    margin-right: 0;
+}
+
+.orders-section h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #d1879e; /* Gruvbox yellow */
+}
+

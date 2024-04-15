@@ -66,13 +66,12 @@ const createProductTableQuery = `
 
 // Create orders table if not exists
 const createOrdersTableQuery = `
-   CREATE TABLE IF NOT EXISTS orders (
+    CREATE TABLE IF NOT EXISTS orders (
         id INT AUTO_INCREMENT PRIMARY KEY,
         product VARCHAR(255) NOT NULL,
         quantity INT NOT NULL,
         address TEXT NOT NULL,
         payment_mode VARCHAR(50) NOT NULL,
-        status VARCHAR(50),
         order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
 `;
@@ -323,7 +322,6 @@ app.post('/placeOrder', (req, res) => {
 });
 
 
-
 // Endpoint to fetch orders
 app.get('/orders', (req, res) => {
     const query = 'SELECT * FROM orders';
@@ -351,6 +349,7 @@ app.put('/order/:id/status', (req, res) => {
         }
     });
 });
+
 
 // Start the server
 const server = http.createServer(app);

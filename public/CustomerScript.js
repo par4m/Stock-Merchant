@@ -8,11 +8,15 @@ document.addEventListener('DOMContentLoaded', function() {
             products.forEach(product => {
                 const listItem = document.createElement('li');
                 listItem.innerHTML = `
-                    <span>${product.pname} - ${product.price}</span>
-                    <select id="qty-${product.pid}">
-                        ${generateQuantityOptions(product.quantity)}
-                    </select>
-                    <button onclick="buyNow('${product.pname}', '${product.price}', ${product.pid})">Buy Now</button>
+                    <div>
+                        <img src="/${product.pname}.jpg" alt="${product.pname}">
+                        <br>
+                        <span>${product.pname} - ${product.price}</span>
+                        <select id="qty-${product.pid}">
+                            ${generateQuantityOptions(product.quantity)}
+                        </select>
+                        <button onclick="buyNow('${product.pname}', '${product.price}', ${product.pid})">Buy Now</button>
+                    </div>
                 `;
                 productList.appendChild(listItem);
             });
@@ -47,3 +51,4 @@ function buyNow(productName, price, productId) {
     // Redirect to buy.html
     window.location.href = buyUrl;
 }
+

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fill the product and quantity fields in the form
     document.getElementById('product').value = product;
     document.getElementById('quantity').value = quantity;
-
+    const listItem = document.createElement('li');
     const orderForm = document.getElementById('order-form');
     orderForm.addEventListener('submit', function(event) {
         event.preventDefault();
