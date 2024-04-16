@@ -72,6 +72,7 @@ const createOrdersTableQuery = `
         quantity INT NOT NULL,
         address TEXT NOT NULL,
         payment_mode VARCHAR(50) NOT NULL,
+        status VARCHAR(50),
         order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
 `;
@@ -286,24 +287,36 @@ app.post('/register', (req, res) => {
 // Handle login POST requests
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
+    let p_message, p_error;
 
-    // Query the database to check if the username and password match
-    connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (err, results) => {
+    // Call the login procedure
+    connection.query('CALL login_procedure(?, ?, @p_message, @p_error)', [username, password], (err, results) => {
         if (err) {
-            console.error('Error querying database:', err);
-            res.status(500).json({ error: 'Internal Server Error' });
-        } else if (results.length > 0) {
-            // Store the username in the session
-            req.session.username = username;
-
-            // Send response indicating successful login
-            res.json({ message: 'Login successful' });
-        } else {
-            // No user found with the given credentials
-            res.status(401).json({ error: 'Invalid username or password' });
+            console.error('Error calling login procedure:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
+
+        // Fetch the output parameters from MySQL session variables
+        connection.query('SELECT @p_message AS p_message, @p_error AS p_error', (err, results) => {
+            if (err) {
+                console.error('Error fetching session variables:', err);
+                return res.status(500).json({ error: 'Internal Server Error' });
+            }
+
+            // Extract the output parameters
+            const { p_message, p_error } = results[0];
+
+            // Check if there's an error
+            if (p_error) {
+                return res.status(401).json({ error: p_error });
+            }
+
+            // Otherwise, login was successful
+            res.json({ message: p_message });
+        });
     });
 });
+
 // Handle order placement
 app.post('/placeOrder', (req, res) => {
     const { product, quantity, address, paymentMode } = req.body;
